@@ -149,10 +149,11 @@
     @apply h-12 cursor-pointer bg-gradient-to-b from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-gray-950 font-medium text-base rounded-lg shadow-lg disabled:opacity-50;
   }
   .home-wrapper {
-    @apply text-gray-400 flex-col gap-4 md:gap-10 items-center sm:items-start;
+    @apply flex flex-col gap-6 text-gray-400;
   }
+
   .home-section {
-    @apply w-full gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3;
+    @apply grid w-full gap-6 grid-cols-1 lg:grid-cols-3;
   }
   .header {
     @apply z-50 w-full h-[70px] bg-gray-800;
