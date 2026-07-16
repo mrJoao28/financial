@@ -28,11 +28,13 @@ export const connectToDatabase = async ()=>{
     try{
         cached.conn = await cached.promise
 
+
     }catch(err){
         cached.promise = null;
         throw err;
     }
 
     console.log("Connect to database");
+    return cached.conn;
 }
 
