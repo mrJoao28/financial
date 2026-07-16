@@ -192,7 +192,14 @@
     @apply h-12 px-3 py-3 text-white text-base placeholder:text-gray-500 border-gray-600 bg-gray-800 rounded-lg focus:!border-yellow-500 focus:ring-0;
   }
   .select-trigger {
-    @apply w-full !h-12 px-3 py-3 text-base border-gray-600 bg-gray-800 text-white rounded-lg focus:!border-yellow-500 focus:ring-0;
+    @apply w-full !h-12 px-3 text-base
+    border border-gray-600
+    bg-gray-800 text-white
+    rounded-lg
+    focus:!border-yellow-500
+    focus-visible:!border-yellow-500
+    focus:outline-none
+    focus-visible:ring-0;
   }
   .country-select-trigger {
     @apply h-12 px-3 py-3 text-base w-full justify-between font-normal border-gray-600 bg-gray-800 text-gray-400 rounded-lg focus:!border-yellow-500 focus:ring-0;
@@ -487,4 +494,20 @@
 
 .scrollbar-hide-default::-webkit-scrollbar-thumb:hover {
   background-color: #9095A1;
+}
+
+.country-select-command {
+  @apply bg-gray-800;
+}
+
+.country-select-group {
+  @apply max-h-72 overflow-y-auto bg-gray-800;
+}
+
+.country-select-content {
+  @apply w-[350px] p-0
+  bg-gray-800
+  border border-gray-600
+  rounded-lg
+  shadow-xl;
 }
