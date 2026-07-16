@@ -165,3 +165,61 @@ export async function getNews(
 }
 
 
+export type StockSearchResult = {
+    symbol: string;
+    description: string;
+    displaySymbol: string;
+    type: string;
+};
+
+export async function searchStocks(query: string): Promise<StockSearchResult[]> {
+    if (!query || query.trim().length === 0) return [];
+
+    const res = await fetch(
+        `https://finnhub.io/api/v1/search?q=${encodeURIComponent(query)}&token=${process.env.NEXT_PUBLIC_FINNHUB_API_KEY}`
+    );
+
+    if (!res.ok) {
+        throw new Error(`Finnhub search failed: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    return (data.result || [])
+        .filter((item: any) => item.type === "Common Stock")
+        .slice(0, 10);
+}
+
+export type StockQuoteData = {
+    symbol: string;
+    price: number;
+    change: number;
+    changePercent: number;
+    marketCap: number | null;
+    peRatio: number | null;
+};
+
+export async function getQuoteData(symbol: string): Promise<StockQuoteData> {
+    const token = NEXT_PUBLIC_FINNHUB_API_KEY;
+
+    const [quote, profile, metric] = await Promise.all([
+        fetchJSON<{ c: number; d: number; dp: number }>(
+            `${FINNHUB_BASE_URL}/quote?symbol=${symbol}&token=${token}`
+        ),
+        fetchJSON<{ marketCapitalization?: number }>(
+            `${FINNHUB_BASE_URL}/stock/profile2?symbol=${symbol}&token=${token}`
+        ).catch(() => ({ marketCapitalization: undefined } as { marketCapitalization?: number })),
+        fetchJSON<{ metric?: { peBasicExclExtraTTM?: number } }>(
+            `${FINNHUB_BASE_URL}/stock/metric?symbol=${symbol}&metric=all&token=${token}`
+        ).catch(() => ({ metric: undefined } as { metric?: { peBasicExclExtraTTM?: number } })),
+    ]);
+
+    return {
+        symbol,
+        price: quote.c,
+        change: quote.d,
+        changePercent: quote.dp,
+        marketCap: profile.marketCapitalization ?? null,
+        peRatio: metric.metric?.peBasicExclExtraTTM ?? null,
+    };
+}

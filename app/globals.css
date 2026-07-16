@@ -511,3 +511,7 @@
   rounded-lg
   shadow-xl;
 }
+
+.stock-details-container {
+  @apply grid w-full grid-cols-1 gap-6 xl:grid-cols-3 space-y-6 sm:space-y-8;
+}
