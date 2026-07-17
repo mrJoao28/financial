@@ -111,13 +111,6 @@ financial/
  
 ---
  
-## 🗺️ Roadmap
- 
-- [ ] Portfolio performance tracking
-- [ ] Multi-currency support
-- [ ] Mobile app version
-- [ ] Custom AI insight prompts per user
----
  
 ## 🤝 Contributing
  
