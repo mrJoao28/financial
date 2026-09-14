@@ -1,125 +1,145 @@
-# 📈 Financial — Real-Time Stock Market App
- 
-A real-time stock market platform built with **Next.js**, featuring live prices, powerful search, personalized alerts, interactive charts, AI-powered insights, and daily news summaries — all in one place.
- 
+# 📈 Financial — Real-Time Stock Market Platform
+
+A full-stack financial platform built with **Next.js and TypeScript**, combining real-time market data, authentication, personalized watchlists and alerts, interactive charts, AI-powered insights, news summaries, and background automation.
+
 ![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js) ![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=typescript) ![Better Auth](https://img.shields.io/badge/Better%20Auth-green?style=for-the-badge) ![Inngest](https://img.shields.io/badge/Inngest-purple?style=for-the-badge)
- 
----
- 
+
+## Why this project
+
+This project demonstrates practical full-stack engineering beyond a basic CRUD application:
+
+- **Frontend:** Next.js App Router, React and Tailwind CSS
+- **Backend:** server-side application logic and API integrations
+- **Authentication:** Better Auth
+- **Data:** MongoDB/Mongoose
+- **Automation:** Inngest event-driven background jobs
+- **AI:** automated financial insights and summaries
+- **Product features:** watchlists, price alerts, charts and news
+
 ## ✨ Features
- 
-- 📊 **Live Stock Prices** — Real-time market data for stocks, indices, and more
-- 🔍 **Smart Search** — Instantly find tickers, companies, and assets
-- 🔔 **Personalized Alerts** — Get notified when a stock hits your target price
-- 📉 **Interactive Charts** — Explore historical and live price movement with rich visualizations
-- 🤖 **AI-Powered Insights** — Automated analysis and summaries to help you understand market trends
-- 📰 **Daily News Summary** — Curated financial news delivered automatically
-- ⭐ **Watchlists** — Track and organize the stocks you care about
-- 🔐 **Secure Authentication** — Powered by Better Auth
-- ⚙️ **Background Automation** — Event-driven workflows (alerts, summaries, jobs) powered by Inngest
----
- 
+
+- 📊 Real-time market prices and asset search
+- ⭐ Personalized watchlists
+- 🔔 Target-price alerts
+- 📉 Interactive historical/live charts
+- 🤖 AI-powered market insights
+- 📰 Automated financial news summaries
+- 🔐 User authentication
+- ⚙️ Background jobs and event-driven workflows
+- 🌙 Responsive UI with theme support
+
 ## 🛠️ Tech Stack
- 
-| Category | Technology |
+
+| Area | Technology |
 |---|---|
-| Framework | [Next.js](https://nextjs.org) (App Router) |
+| Framework | Next.js (App Router) |
 | Language | TypeScript |
-| Authentication | [Better Auth](https://www.better-auth.com/) |
-| Background Jobs / Automation | [Inngest](https://www.inngest.com/) |
-| Styling | Tailwind CSS |
-| Charts | Interactive charting library |
-| AI Insights | AI-powered analysis engine |
- 
----
- 
+| UI | React + Tailwind CSS |
+| Authentication | Better Auth |
+| Database | MongoDB + Mongoose |
+| Background Jobs | Inngest |
+| AI | AI provider integrations |
+| Validation / Forms | React Hook Form |
+
+## 📁 Architecture
+
+```text
+financial/
+├── app/             # Routes, pages and server-side application logic
+├── components/      # Reusable UI components
+├── database/        # Database configuration and models
+├── inngest/         # Background jobs and event handlers
+├── lib/             # Integrations, utilities and shared services
+├── middleware/      # Request/authentication middleware
+├── hooks/           # Reusable React hooks
+└── public/          # Static assets
+```
+
+The application follows a feature-oriented structure where the UI, server logic, persistence, authentication, and background workflows are separated into focused modules.
+
+## 🔄 Main Flow
+
+```text
+User
+  ↓
+Next.js UI
+  ↓
+Server-side logic / API integrations
+  ├── Authentication → Better Auth
+  ├── Market data → External provider
+  ├── Persistence → MongoDB
+  └── Events → Inngest
+                ↓
+        Alerts / News / AI jobs
+```
+
 ## 🚀 Getting Started
- 
+
 ### Prerequisites
- 
+
 - Node.js 18+
-- npm / yarn / pnpm / bun
-- A stock market data API key (see [Environment Variables](#-environment-variables))
+- npm, pnpm, yarn or Bun
+- MongoDB
+- Credentials for the integrations you want to use
+
 ### Installation
- 
+
 ```bash
 git clone https://github.com/mrJoao28/financial.git
 cd financial
 npm install
 ```
- 
-### Environment Variables
- 
-Create a `.env.local` file in the root directory and add the required keys:
- 
-```env
-# Stock market data provider
-STOCK_API_KEY=your_api_key_here
- 
-# Better Auth
-BETTER_AUTH_SECRET=your_secret_here
-BETTER_AUTH_URL=http://localhost:3000
- 
-# Inngest
-INNGEST_EVENT_KEY=your_event_key_here
-INNGEST_SIGNING_KEY=your_signing_key_here
- 
-# AI Insights provider
-AI_API_KEY=your_ai_api_key_here
- 
-# Database
-DATABASE_URL=your_database_connection_string
+
+### Environment variables
+
+Copy `.env.example` to `.env.local` and fill in the required values:
+
+```bash
+cp .env.example .env.local
 ```
- 
-> ⚠️ Never commit your `.env.local` file. Make sure it's listed in `.gitignore`.
- 
-### Running the Development Server
- 
+
+Required integrations include market data, authentication, database, Inngest, and AI credentials depending on the features being used.
+
+> ⚠️ Never commit `.env.local` or real API keys. The repository contains `.env.example` as a safe configuration template.
+
+### Development
+
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
- 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the app running.
- 
-### Running Inngest Locally (Background Jobs)
- 
-To test background automation (alerts, news summaries, etc.) locally, run the Inngest dev server alongside the app:
- 
+
+Open `http://localhost:3000` in your browser.
+
+### Background jobs
+
+For local Inngest development, run the Inngest development server alongside Next.js:
+
 ```bash
 npx inngest-cli@latest dev
 ```
- 
----
- 
-## 📁 Project Structure
- 
+
+## 🧪 Quality checks
+
+Before opening a pull request, run:
+
+```bash
+npm run lint
+npm run build
 ```
-financial/
-├── app/                # Next.js app router pages & layouts
-├── components/         # Reusable UI components
-├── lib/                # Utilities, API clients, and helpers
-├── inngest/             # Inngest functions & event handlers
-├── public/             # Static assets
-└── ...
-```
- 
----
- 
- 
+
+These checks help catch code-quality and production-build issues before deployment.
+
+## 🔐 Security notes
+
+- Secrets belong in environment variables and must not be committed.
+- Authentication is handled through Better Auth rather than storing plaintext passwords.
+- External integrations should be configured with server-side secrets.
+- Production deployments should use secure, environment-specific credentials and database access rules.
+
 ## 🤝 Contributing
- 
-Contributions, issues, and feature requests are welcome!
-Feel free to check the [issues page](https://github.com/mrJoao28/financial/issues) or open a pull request.
- 
----
- 
- 
+
+Issues and pull requests are welcome. For meaningful changes, explain the problem being solved and include the relevant validation steps.
+
 ## 👤 Author
- 
+
 **João** — [@mrJoao28](https://github.com/mrJoao28)
