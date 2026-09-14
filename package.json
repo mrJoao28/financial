@@ -1,12 +1,12 @@
 {
-  "name": "stocks",
-  "version": "0.1.0",
+  "name": "financial",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@inngest/ai": "^0.1.7",
