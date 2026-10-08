@@ -18,6 +18,13 @@ const NEXT_PUBLIC_FINNHUB_API_KEY =
 // The exact shape returned by utils' formatArticle().
 export type MarketNewsArticle = ReturnType<typeof formatArticle>;
 
+type FinnhubSearchItem = {
+    symbol: string;
+    description: string;
+    displaySymbol: string;
+    type: string;
+};
+
 type FetchOptionsWithRevalidate = RequestInit & {
     next?: { revalidate?: number };
 };
@@ -183,10 +190,18 @@ export async function searchStocks(query: string): Promise<StockSearchResult[]> 
         throw new Error(`Finnhub search failed: ${res.status}`);
     }
 
-    const data = await res.json();
+    const data = (await res.json()) as { result?: unknown };
+    const results = Array.isArray(data.result) ? data.result : [];
 
-    return (data.result || [])
-        .filter((item: any) => item.type === "Common Stock")
+    return results
+        .filter((item): item is FinnhubSearchItem => {
+            if (!item || typeof item !== "object") return false;
+            const candidate = item as Partial<FinnhubSearchItem>;
+            return candidate.type === "Common Stock"
+                && typeof candidate.symbol === "string"
+                && typeof candidate.description === "string"
+                && typeof candidate.displaySymbol === "string";
+        })
         .slice(0, 10);
 }
 
