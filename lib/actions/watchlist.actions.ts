@@ -4,6 +4,13 @@ import { connectToDatabase } from "@/database/mongoose";
 import { Watchlist } from "@/database/models/watchlist.model";
 import { getQuoteData } from "@/lib/actions/finnhub.actions";
 
+function isDuplicateKeyError(error: unknown): boolean {
+    return typeof error === "object"
+        && error !== null
+        && "code" in error
+        && (error as { code?: unknown }).code === 11000;
+}
+
 interface BetterAuthUserDoc {
     _id?: unknown;
     id?: string;
@@ -71,8 +78,8 @@ export async function addToWatchlist(email: string, symbol: string, company: str
         await Watchlist.create({ userId, symbol: symbol.toUpperCase(), company });
 
         return { success: true };
-    } catch (err: any) {
-        if (err?.code === 11000) return { success: true }; // já estava na watchlist
+    } catch (err: unknown) {
+        if (isDuplicateKeyError(err)) return { success: true }; // já estava na watchlist
         console.error("addToWatchlist error:", err);
         return { success: false, error: "Failed to add to watchlist" };
     }
