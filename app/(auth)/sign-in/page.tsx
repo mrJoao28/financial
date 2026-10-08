@@ -29,7 +29,7 @@ const SignIn = () => {
     const onSubmit: SubmitHandler<SignInFormData> = async (data) => {
         try {
             const result = await signInWIthEmail(data)
-            if (result.sucess) {
+            if (result.success) {
                 router.push("/");
             } else {
                 toast.error("Sign in failed", {
