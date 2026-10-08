@@ -1,6 +1,8 @@
 export const NAV_ITEMS = [
     { href: '/', label: 'Dashboard' },
     { href: '/search', label: 'Search' },
+    { href: '/terminal', label: 'Terminal' },
+    { href: '/day-trade', label: 'Day Trade Focus' },
     { href: '/watchlist', label: 'Watchlist' },
 ];
 
@@ -337,3 +339,121 @@ export const WATCHLIST_TABLE_HEADER = [
     'Alert',
     'Action',
 ];
+
+// ---------------------------------------------------------------------------
+// Bloomberg-style terminal screens (all free TradingView embeds)
+// ---------------------------------------------------------------------------
+export const TICKER_TAPE_WIDGET_CONFIG = {
+    symbols: [
+        { proName: 'FOREXCOM:SPXUSD', title: 'S&P 500' },
+        { proName: 'FOREXCOM:NSXUSD', title: 'Nasdaq 100' },
+        { proName: 'FOREXCOM:DJI', title: 'Dow Jones' },
+        { proName: 'BMFBOVESPA:IBOV', title: 'Ibovespa' },
+        { proName: 'FX_IDC:USDBRL', title: 'USD/BRL' },
+        { proName: 'FX_IDC:EURUSD', title: 'EUR/USD' },
+        { proName: 'TVC:GOLD', title: 'Gold' },
+        { proName: 'TVC:USOIL', title: 'WTI Oil' },
+        { proName: 'BITSTAMP:BTCUSD', title: 'Bitcoin' },
+        { proName: 'BITSTAMP:ETHUSD', title: 'Ethereum' },
+    ],
+    showSymbolLogo: true,
+    colorTheme: 'dark',
+    isTransparent: true,
+    displayMode: 'adaptive',
+    locale: 'en',
+};
+
+// GP <GO>: price chart with volume + moving averages + RSI
+export const GP_CHART_WIDGET_CONFIG = {
+    allow_symbol_change: true,
+    calendar: false,
+    details: false,
+    hide_side_toolbar: false,
+    hide_top_toolbar: false,
+    hide_legend: false,
+    hide_volume: false,
+    hotlist: false,
+    interval: 'D',
+    locale: 'en',
+    save_image: true,
+    style: 1,
+    symbol: 'NASDAQ:AAPL',
+    theme: 'dark',
+    timezone: 'America/Sao_Paulo',
+    backgroundColor: '#141414',
+    gridColor: '#212328',
+    watchlist: ['NASDAQ:AAPL', 'NASDAQ:NVDA', 'NASDAQ:TSLA', 'AMEX:SPY', 'NASDAQ:QQQ'],
+    withdateranges: true,
+    compareSymbols: [],
+    studies: ['MASimple@tv-basicstudies', 'RSI@tv-basicstudies'],
+    width: '100%',
+    height: 640,
+};
+
+// Day trade: 5-minute intraday chart
+export const INTRADAY_CHART_WIDGET_CONFIG = {
+    ...GP_CHART_WIDGET_CONFIG,
+    symbol: 'AMEX:SPY',
+    interval: '5',
+    withdateranges: false,
+    watchlist: ['AMEX:SPY', 'NASDAQ:QQQ', 'NASDAQ:NVDA', 'NASDAQ:TSLA', 'NASDAQ:AAPL'],
+    height: 560,
+};
+
+// MOST <GO>: top gainers / losers / most active
+export const HOTLIST_WIDGET_CONFIG = {
+    colorTheme: 'dark',
+    dateRange: '1D',
+    exchange: 'US',
+    showChart: true,
+    locale: 'en',
+    largeChartUrl: '',
+    isTransparent: true,
+    showSymbolLogo: true,
+    showFloatingTooltip: false,
+    plotLineColorGrowing: 'rgba(15, 237, 190, 1)',
+    plotLineColorFalling: 'rgba(255, 73, 91, 1)',
+    gridLineColor: 'rgba(240, 243, 250, 0)',
+    scaleFontColor: '#DBDBDB',
+    belowLineFillColorGrowing: 'rgba(15, 237, 190, 0.12)',
+    belowLineFillColorFalling: 'rgba(255, 73, 91, 0.12)',
+    belowLineFillColorGrowingBottom: 'rgba(15, 237, 190, 0)',
+    belowLineFillColorFallingBottom: 'rgba(255, 73, 91, 0)',
+    symbolActiveColor: 'rgba(253, 212, 88, 0.12)',
+    width: '100%',
+    height: 640,
+};
+
+// EQS <GO>: equity screener
+export const SCREENER_WIDGET_CONFIG = {
+    defaultColumn: 'overview',
+    defaultScreen: 'most_capitalized',
+    market: 'america',
+    showToolbar: true,
+    colorTheme: 'dark',
+    locale: 'en',
+    isTransparent: true,
+    width: '100%',
+    height: 640,
+};
+
+// ECO <GO>: economic calendar
+export const ECONOMIC_CALENDAR_WIDGET_CONFIG = {
+    colorTheme: 'dark',
+    isTransparent: true,
+    locale: 'en',
+    countryFilter: 'us,br,eu,gb,jp,cn,de,ca',
+    importanceFilter: '0,1',
+    width: '100%',
+    height: 600,
+};
+
+// FXC <GO>: currency cross rates
+export const FOREX_CROSS_RATES_WIDGET_CONFIG = {
+    currencies: ['EUR', 'USD', 'JPY', 'GBP', 'CHF', 'AUD', 'CAD', 'BRL'],
+    isTransparent: true,
+    colorTheme: 'dark',
+    locale: 'en',
+    width: '100%',
+    height: 600,
+};

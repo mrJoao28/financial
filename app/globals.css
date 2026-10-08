@@ -515,3 +515,28 @@
 .stock-details-container {
   @apply grid w-full grid-cols-1 gap-6 xl:grid-cols-3 space-y-6 sm:space-y-8;
 }
+
+/* Bloomberg-style terminal panels */
+@layer utilities {
+  .tpanel {
+    @apply bg-gray-800 border border-gray-600 rounded-lg overflow-hidden flex flex-col;
+  }
+  .tpanel-head {
+    @apply flex items-center justify-between gap-3 px-4 py-2.5 bg-gray-700 border-b border-gray-600;
+  }
+  .tpanel-code {
+    @apply px-2 py-0.5 rounded bg-yellow-500 text-gray-900 font-mono text-xs font-bold tracking-wide;
+  }
+  .tpanel-title {
+    @apply text-sm font-semibold text-gray-100 uppercase tracking-wide;
+  }
+  .tpanel-body {
+    @apply flex-1 min-h-0;
+  }
+  .terminal-page-title {
+    @apply text-2xl md:text-3xl font-bold text-gray-100;
+  }
+  .terminal-page-subtitle {
+    @apply text-sm text-gray-500 mt-1;
+  }
+}

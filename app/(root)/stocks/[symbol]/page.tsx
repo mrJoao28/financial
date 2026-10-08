@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import { headers } from "next/headers";
 import { getAuth } from "@/lib/better-auth/auth";
 import TradingViewWidget from "@/components/TradingViewWidget";
 import WatchlistButton from "@/components/WatchlistButton";
+import StockAnalysis from "@/components/terminal/StockAnalysis";
 import { searchStocks } from "@/lib/actions/finnhub.actions";
 import { getWatchlistSymbolsByEmail } from "@/lib/actions/watchlist.actions";
 import {
@@ -56,6 +58,11 @@ export default async function StockDetails({ params }: StockDetailsPageProps) {
                     className="custom-chart"
                     height={600}
                 />
+                <Suspense
+                    fallback={<p className="text-sm text-gray-500">Loading advanced analysis…</p>}
+                >
+                    <StockAnalysis symbol={upperSymbol} />
+                </Suspense>
             </div>
 
             <div className="flex flex-col gap-5 xl:col-span-1">
