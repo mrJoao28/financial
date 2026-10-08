@@ -44,7 +44,6 @@ export default function SearchCommand({ open: openProp, setOpen: setOpenProp }: 
     useEffect(() => {
         if (searchTerm.trim().length === 0) return;
 
-        setLoading(true);
         const timeout = setTimeout(async () => {
             try {
                 const data = await searchStocks(searchTerm);
@@ -65,6 +64,8 @@ export default function SearchCommand({ open: openProp, setOpen: setOpenProp }: 
         if (value.trim().length === 0) {
             setResults([]);
             setLoading(false);
+        } else {
+            setLoading(true);
         }
     };
 
