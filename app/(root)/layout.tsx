@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Header from "@/components/Header";
 import { getAuth } from "@/lib/better-auth/auth";
 import { headers } from "next/headers";
