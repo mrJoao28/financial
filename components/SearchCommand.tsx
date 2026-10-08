@@ -42,11 +42,7 @@ export default function SearchCommand({ open: openProp, setOpen: setOpenProp }: 
     }, [open, setOpen]);
 
     useEffect(() => {
-        if (searchTerm.trim().length === 0) {
-            setResults([]);
-            setLoading(false);
-            return;
-        }
+        if (searchTerm.trim().length === 0) return;
 
         setLoading(true);
         const timeout = setTimeout(async () => {
@@ -64,6 +60,14 @@ export default function SearchCommand({ open: openProp, setOpen: setOpenProp }: 
         return () => clearTimeout(timeout);
     }, [searchTerm]);
 
+    const handleSearchTermChange = (value: string) => {
+        setSearchTerm(value);
+        if (value.trim().length === 0) {
+            setResults([]);
+            setLoading(false);
+        }
+    };
+
     const handleSelectStock = (symbol: string) => {
         setOpen(false);
         setSearchTerm("");
@@ -80,7 +84,7 @@ export default function SearchCommand({ open: openProp, setOpen: setOpenProp }: 
                 <CommandInput
                     placeholder="Search stocks..."
                     value={searchTerm}
-                    onValueChange={setSearchTerm}
+                    onValueChange={handleSearchTermChange}
                     className="search-input"
                 />
                 {loading && <Loader2 className="search-loader" />}
