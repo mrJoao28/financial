@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { auth } from "@/lib/better-auth/auth";
+import { getAuth } from "@/lib/better-auth/auth";
 import { getWatchlistWithData } from "@/lib/actions/watchlist.actions";
 import { getAlertsByEmail } from "@/lib/actions/alert.actions";
 import { getNews } from "@/lib/actions/finnhub.actions";
@@ -7,6 +7,7 @@ import WatchlistTable from "@/components/WatchlistTable";
 import AlertsPanel from "@/components/AlertsPanel";
 
 export default async function WatchlistPage() {
+    const auth = await getAuth();
     const session = await auth.api.getSession({ headers: await headers() });
     const userEmail = session?.user?.email ?? "";
 
