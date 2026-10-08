@@ -36,7 +36,7 @@ const SignUp = () => {
     const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
         try {
             const result = await signUpWIthEmail(data)
-            if (result.sucess) {
+            if (result.success) {
                 router.push("/");
             } else {
                 toast.error("Sign up failed", {
