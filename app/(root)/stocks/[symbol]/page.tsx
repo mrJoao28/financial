@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { auth } from "@/lib/better-auth/auth";
+import { getAuth } from "@/lib/better-auth/auth";
 import TradingViewWidget from "@/components/TradingViewWidget";
 import WatchlistButton from "@/components/WatchlistButton";
 import { searchStocks } from "@/lib/actions/finnhub.actions";
@@ -23,6 +23,7 @@ export default async function StockDetails({ params }: StockDetailsPageProps) {
     const { symbol } = await params;
     const upperSymbol = symbol.toUpperCase();
 
+    const auth = await getAuth();
     const session = await auth.api.getSession({ headers: await headers() });
     const userEmail = session?.user?.email ?? "";
 
