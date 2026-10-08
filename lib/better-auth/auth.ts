@@ -7,7 +7,6 @@ import { Db } from "mongodb";
 function createAuthInstance(db: Db) {
     return betterAuth({
         database: mongodbAdapter(db),
-
         secret: process.env.BETTER_AUTH_SECRET,
         baseURL: process.env.BETTER_AUTH_URL,
         emailAndPassword: {
@@ -36,5 +35,3 @@ export const getAuth = async () => {
 
     return authInstance;
 };
-
-export const auth = await getAuth();
