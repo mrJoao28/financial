@@ -27,5 +27,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Test deployment configuration
+        run: npm test
+
       - name: Build
         run: npm run build
+
+      - name: Check production routes without a database
+        run: npm run test:smoke

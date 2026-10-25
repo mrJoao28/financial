@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test:smoke": "node tests/production-smoke.mjs"
   },
   "dependencies": {
     "@inngest/ai": "^0.1.7",

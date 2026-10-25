@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import { headers } from "next/headers";
-import { getAuth } from "@/lib/better-auth/auth";
+import { getCurrentSession } from "@/lib/better-auth/session";
 import TradingViewWidget from "@/components/TradingViewWidget";
 import WatchlistButton from "@/components/WatchlistButton";
 import StockAnalysis from "@/components/terminal/StockAnalysis";
@@ -25,8 +24,7 @@ export default async function StockDetails({ params }: StockDetailsPageProps) {
     const { symbol } = await params;
     const upperSymbol = symbol.toUpperCase();
 
-    const auth = await getAuth();
-    const session = await auth.api.getSession({ headers: await headers() });
+    const session = await getCurrentSession();
     const userEmail = session?.user?.email ?? "";
 
     const [searchResults, watchlistSymbols] = await Promise.all([

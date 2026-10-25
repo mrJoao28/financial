@@ -77,7 +77,7 @@ Server-side logic / API integrations
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - npm, pnpm, yarn or Bun
 - MongoDB
 - Credentials for the integrations you want to use
@@ -99,6 +99,37 @@ cp .env.example .env.local
 ```
 
 Required integrations include market data, authentication, database, Inngest, and AI credentials depending on the features being used.
+
+### Vercel production setup
+
+A successful build only confirms compilation. Authentication also needs a working
+database and secrets **when a request arrives**. In Vercel → Project Settings →
+Environment Variables, configure these for **Production**, then redeploy:
+
+| Variable | Production value |
+|---|---|
+| `MONGODB_URI` | MongoDB Atlas connection string with a database name, e.g. `mongodb+srv://USER:PASSWORD@CLUSTER/financial`. `DATABASE_URL` is accepted as a fallback for MongoDB URIs only. |
+| `BETTER_AUTH_SECRET` | A stable random secret of at least 32 characters. Generate locally with `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. |
+| `BETTER_AUTH_URL` | `https://financial-8in8.vercel.app` (no `localhost`). If omitted on Vercel, the deployment domain is used automatically. |
+
+In Atlas, ensure the cluster is active, the database user has access to the
+selected database, and Network Access permits your Vercel application's outbound
+connections. Encode special characters in the database password in the URI.
+Do not paste database credentials into issues or logs.
+
+`INNGEST_EVENT_KEY` and `INNGEST_SIGNING_KEY` enable background jobs; leave
+`INNGEST_DEV` unset in production. A welcome-job failure does not invalidate a
+successfully created account. Other optional integrations are configured separately.
+
+Guests are redirected to `/sign-in` without opening a database connection. Login
+and registration pages remain accessible during database outages, but signing
+in still requires valid database/auth configuration. A stale or invalid session
+never grants access to the dashboard. Database connection attempts time out after
+five seconds; a failed attempt can be retried on the next request.
+
+After deployment, check `/`, `/sign-in`, `/sign-up`, and a full sign-in flow.
+If authentication fails, inspect Vercel Runtime Logs and the Production variables;
+the build status alone cannot validate database connectivity.
 
 > ⚠️ Never commit `.env.local` or real API keys. The repository contains `.env.example` as a safe configuration template.
 
@@ -124,10 +155,15 @@ Before opening a pull request, run:
 
 ```bash
 npm run lint
+npm test
 npm run build
+npm run test:smoke
 ```
 
-These checks help catch code-quality and production-build issues before deployment.
+The smoke tests run the compiled production server without credentials and with
+an unreachable database, checking guest redirects, login/registration rendering,
+stale sessions, and controlled auth API failures. They never contact a production
+database. A successful authenticated sign-in still needs a configured environment.
 
 ## 🔐 Security notes
 

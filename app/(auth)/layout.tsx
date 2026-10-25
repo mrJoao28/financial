@@ -2,13 +2,11 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import Image from "next/image";
-import { getAuth } from "@/lib/better-auth/auth";
-import { headers } from "next/headers";
+import { getCurrentSession } from "@/lib/better-auth/session";
 import { redirect } from "next/navigation";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
-    const authInstance = await getAuth();
-    const session = await authInstance.api.getSession({ headers: await headers() });
+    const session = await getCurrentSession();
     if (session?.user) redirect("/");
 
     return (
